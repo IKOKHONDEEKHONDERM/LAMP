@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Name to Database</title>
+</head>
+<body>
+    <h1>Add Name to Database</h1>
+    <form id="nameForm">
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <button type="submit">Add Name</button>
+    </form>
+    <h2>Names in the Database:</h2>
+    <ul id="nameList"></ul>
+
+    <script>
+        const form = document.getElementById('nameForm');
+        const nameList = document.getElementById('nameList');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+
+            // Send POST request to add the name
+            await fetch('/add-name', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name }),
+            });
+
+            // Fetch the updated list of names
+            fetchNames();
+        });
+
+        async function fetchNames() {
+            const response = await fetch('/names');
+            const names = await response.json();
+
+            nameList.innerHTML = '';
+            names.forEach((item) => {
+                const li = document.createElement('li');
+                li.textContent = item.name;
+
+                // Add a delete button next to each name
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.addEventListener('click', async () => {
+                    await fetch(`/delete-name/${item.id}`, {
+                        method: 'DELETE',
+                    });
+
+                    // Fetch the updated list after deletion
+                    fetchNames();
+                });
+
+                // Append delete button to the list item
+                li.appendChild(deleteButton);
+                nameList.appendChild(li);
+            });
+        }
+
+        // Fetch the names when the page loads
+        fetchNames();
+    </script>
+</body>
+</html>
