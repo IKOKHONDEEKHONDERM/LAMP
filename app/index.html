@@ -8,9 +8,38 @@
         body {
             background-color: #ebf5fb;
             font-family: 'Roboto', sans-serif;
-            font-size: 32px;
+            font-size: 22px;
             color: #154360;
+        }
 
+        .m1 {
+            padding: 20px; /* เพิ่ม padding ให้กับ container ของ ul */
+        }
+
+        #nameList {
+            padding: 10px; 
+            border: 1px solid #ccc; /* เพิ่มเส้นขอบให้ ul เพื่อความสวยงาม */
+            border-radius: 5px; /* มุมมน */
+            background-color: #ffffff; /* สีพื้นหลัง */
+        }
+
+        .ma li {
+            list-style-type: none; /* เอา bullet point ออก */
+            
+        }
+
+        .ma li button {
+            padding: 10px 15px; /* เพิ่ม padding ให้กับปุ่ม */
+            color: #ffffff; /* สีข้อความปุ่ม */
+            background-color: #e74c3c; /* สีพื้นหลังปุ่ม */
+            border: none; /* เอาเส้นขอบปุ่มออก */
+            border-radius: 5px; /* มุมปุ่มโค้งมน */
+            cursor: pointer; /* เปลี่ยน cursor เป็นรูปมือเมื่อชี้ */
+            margin-left: 10px;
+        }
+
+        .ma li button:hover {
+            background-color: #c0392b; /* เปลี่ยนสีปุ่มเมื่อชี้เมาส์ */
         }
     </style>
 </head>
@@ -21,15 +50,9 @@
         <button type="submit">Add</button>
     </form>
     <h2>Names in the Database:</h2>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            font-size: 22px;
-            color: #154360;
-
-        }
-    </style>
-    <ul id="nameList"></ul>
+    <div class="m1">
+        <ul class="ma" id="nameList"></ul>
+    </div>
 
     <script>
         const form = document.getElementById('nameForm');
